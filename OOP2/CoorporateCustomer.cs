@@ -1,0 +1,15 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace OOP2
+{
+    class CoorporateCustomer : Customer
+    {
+        public int CompanyID { get; set; }
+        public string CustomerNo { get; set; }
+        public string CompanyName { get; set; }
+        public string TaxNo { get; set; }
+    }
+}
+
