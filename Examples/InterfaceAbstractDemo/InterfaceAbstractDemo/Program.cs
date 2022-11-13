@@ -10,7 +10,7 @@ namespace InterfaceAbstractDemo
     {
         static void Main(string[] args)
         {
-            BaseCustomerManager baseCustomerManager = new StarbucksCustomerManager(new ServiceMernisAdaptor);
+            BaseCustomerManager baseCustomerManager = new StarbucksCustomerManager(new ServiceMernisAdaptor());
             baseCustomerManager.Save(new Customer
             {
                 ID = 1,
