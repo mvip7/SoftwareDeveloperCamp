@@ -30,7 +30,7 @@ namespace DataAccessLayer.Concrete.InMemory
                                                                        * elemanında tut*/
             if (findCar==null)
             {
-                listOfCars.Add(findCar);
+                listOfCars.Add(cars);
                 Console.WriteLine("Araç Ekleme İşlemi Başarıyla Gerçekleşti !!!");
             }
             else
