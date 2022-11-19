@@ -5,8 +5,7 @@ using System.Text;
 
 namespace DataAccessLayer.Abstract
 {
-    public interface ICarDal:IEntityRepos<Car>
+    public interface IBrandDal:IEntityRepos<Brand>
     {
-        
     }
 }

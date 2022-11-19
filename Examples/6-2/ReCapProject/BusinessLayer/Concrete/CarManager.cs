@@ -7,7 +7,7 @@ using System.Text;
 
 namespace BusinessLayer.Concrete
 {
-    public class CarManager : ICarManager
+    public class CarManager : ICarService
     {
         ICarDal _carDal;
 
@@ -18,12 +18,21 @@ namespace BusinessLayer.Concrete
 
         public void Add(Car car)
         {
-            _carDal.Add(car);
+            if (car.Description.Length<2 || car.DailyPrice<=0)
+            {
+                Console.WriteLine("Araç Açıklaması En Az 2 Karakter Ve Araç Kiralama Fiyatı 0'dan Büyük Olmalı");
+            }
+            else
+            {
+                _carDal.Add(car);
+                Console.WriteLine("Araç Ekleme İşlemi Başarılı");
+            }
         }
 
-        public void Delete(int ID)
+        public void Delete(Car car)
         {
-            _carDal.Delete(ID);
+            _carDal.Delete(car);
+            Console.WriteLine("Araç Silindi");
         }
 
         public List<Car> GetAll()
@@ -31,14 +40,20 @@ namespace BusinessLayer.Concrete
             return _carDal.GetAll();
         }
 
-        public List<Car> GetById()
+        public List<Car> GetCarsByBrandId(int id)
         {
-            return _carDal.GetByID();
+            return _carDal.GetAll(c=>c.BrandID==id);
+        }
+
+        public List<Car> GetCarsByColorId(int id)
+        {
+            return _carDal.GetAll(c => c.ColorID == id);
         }
 
         public void Update(Car car)
         {
             _carDal.Update(car);
+            Console.WriteLine("Güncelleme İşlemi Başarılı");
         }
     }
 }

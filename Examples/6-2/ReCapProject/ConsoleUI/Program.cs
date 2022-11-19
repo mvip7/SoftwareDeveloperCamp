@@ -17,10 +17,10 @@ namespace ConsoleUI
             Car car = new Car
             {
                 ID = 6,
-                CarBrandID = 4,
+                BrandID = 4,
                 DailyPrice = 190,
                 Description = "Toyata Marka Araç",
-                ColorID = "73, 90, 94",
+                ColorID = 2,
                 ModelYear = "2018"
             };
 
@@ -31,7 +31,7 @@ namespace ConsoleUI
             Console.WriteLine("\n");
 
             _carManager.Add(car);
-            _carManager.Delete(4);
+            _carManager.Delete(car);
             Console.WriteLine("\n");
 
             foreach (var item in _carManager.GetAll())
@@ -52,7 +52,7 @@ namespace ConsoleUI
 
             List<Car> listCar = new List<Car>();
             var result = listCar.Where(c=>c.ID==3);
-            foreach (var item in _carManager.GetById())
+            foreach (var item in result)
             {
                 Console.WriteLine(item.Description);
             }

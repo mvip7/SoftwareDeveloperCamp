@@ -5,12 +5,14 @@ using System.Text;
 
 namespace BusinessLayer.Abstract
 {
-    public interface ICarManager
+    public interface ICarService
     {
         List<Car> GetAll();
-        List<Car> GetById();
+        List<Car> GetCarsByBrandId(int id);
+        List<Car> GetCarsByColorId(int id);
         void Add(Car car);
         void Update(Car car);
-        void Delete(int ID);
+        void Delete(Car car);
+        
     }
 }
