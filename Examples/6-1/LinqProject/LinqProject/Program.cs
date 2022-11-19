@@ -21,7 +21,7 @@ namespace LinqProject
                 new Product {ProductID=7,CategoryID=3,ProductName="Takım Elbise",QuantityPerUnit="-",UnitPrice=650,UnitsInStock=200},
                 new Product {ProductID=5,CategoryID=1,ProductName="Buzdolabı",QuantityPerUnit="-",UnitPrice=2300,UnitsInStock=175},
                 new Product {ProductID=4,CategoryID=3,ProductName="Gömlek",QuantityPerUnit="-",UnitPrice=80,UnitsInStock=80},
-                new Product {ProductID=11,CategoryID=3,ProductName="Mont",QuantityPerUnit="-",UnitPrice=650,UnitsInStock=80}
+                new Product {ProductID=11,CategoryID=3,ProductName="yunus,kobal,gmail,com",QuantityPerUnit="-",UnitPrice=650,UnitsInStock=80}
             };
 
             Product newProducts = new Product { ProductID = 21, CategoryID = 1, ProductName = "Davlumbaz", QuantityPerUnit = "-", UnitPrice = 1250, UnitsInStock = 145 };
@@ -40,32 +40,26 @@ namespace LinqProject
 
             // -- Join İşlemi -- İki Tablonun belirlenen kritere göre birleştirilmesi
 
-            var result = from p in products
-                         join c in categories
-      on p.CategoryID equals c.CategoryID
-                         where p.ProductID.ToString().EndsWith("1")
-                         select new ProductDto { ProductID = p.ProductID, ProductName = p.ProductName, CategoryName = c.CategoryName, UnitPrice = p.UnitPrice };
-            foreach (var item in result)
-            {
-                Console.WriteLine("{0} -- {1}", item.ProductName, item.CategoryName);
-            }
+            //JoinTest(categories, products);
 
             var result1 = products.Where(p => p.ProductName.Contains("m") || p.ProductName.Contains("c"));
+            
             foreach (var item in result1)
             {
-                item.ProductName.Replace("m", "*");
+                String str = item.ProductName.Replace(",", "").Replace("gmail", "@gmail").Replace("com", ".com");
+                Console.WriteLine(str);
                 Console.WriteLine(item.ProductName);
             }
-
             Console.WriteLine("\n-----\n");
 
+
             var result2 = from u in products
-                          orderby u.CategoryID descending
-                          group u by u.CategoryID into urunler
-                          select new { Kategori=urunler.Key, Urun=urunler.Count() };
+                          join c in categories on u.CategoryID equals c.CategoryID
+                          group c by c.CategoryName into urunler
+                          select new { Kategori = urunler.Key, Urun = urunler.Count() };
             foreach (var item in result2)
             {
-                Console.WriteLine("{0} Kategorisinde {1} Adet Urun Var",item.Kategori,item.Urun);
+                Console.WriteLine("{0} Kategorisinde {1} Adet Urun Var", item.Kategori, item.Urun);
             }
 
 
@@ -90,6 +84,19 @@ namespace LinqProject
             //    return products.Where(p => p.UnitPrice < 500 && p.UnitsInStock < 200).ToList();
             //}
 
+        }
+
+        private static void JoinTest(List<Category> categories, List<Product> products)
+        {
+            var result = from p in products
+                         join c in categories
+      on p.CategoryID equals c.CategoryID
+                         where p.ProductID.ToString().EndsWith("1")
+                         select new ProductDto { ProductID = p.ProductID, ProductName = p.ProductName, CategoryName = c.CategoryName, UnitPrice = p.UnitPrice };
+            foreach (var item in result)
+            {
+                Console.WriteLine("{0} -- {1}", item.ProductName, item.CategoryName);
+            }
         }
 
         private static void ClassicLinqTest(List<Product> products)
