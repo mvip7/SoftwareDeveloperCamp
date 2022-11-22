@@ -1,14 +1,15 @@
-﻿using System;
+﻿using Core.Entities;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace EntitiesLayer.DTOs
 {
-    public class CarInfoDto
+    public class CarInfoDto:IDto
     {
-        public int CarID{ get; set; }
-        public string ColorName{ get; set; }
-        public string BrandName{ get; set; }
-        public decimal DailyPrice{ get; set; }
+        public int CarId{ get; set; }
+        public string Color{ get; set; }
+        public string Brand{ get; set; }
+        public int DailyPrice{ get; set; }
     }
 }

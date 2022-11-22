@@ -1,5 +1,6 @@
 ﻿using DataAccessLayer.Abstract;
 using EntitiesLayer.Concrete;
+using EntitiesLayer.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -80,6 +81,11 @@ namespace DataAccessLayer.Concrete.InMemory
         public List<Car> GetByID()
         {
             return listOfCars;
+        }
+
+        public List<CarInfoDto> GetCarInfo()
+        {
+            throw new NotImplementedException();
         }
 
         public void Update(Car cars)

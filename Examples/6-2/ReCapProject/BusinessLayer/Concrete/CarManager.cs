@@ -1,6 +1,7 @@
 ﻿using BusinessLayer.Abstract;
 using DataAccessLayer.Abstract;
 using EntitiesLayer.Concrete;
+using EntitiesLayer.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -38,6 +39,11 @@ namespace BusinessLayer.Concrete
         public List<Car> GetAll()
         {
             return _carDal.GetAll();
+        }
+
+        public List<CarInfoDto> GetCarInfo()
+        {
+            return _carDal.GetCarInfo();
         }
 
         public List<Car> GetCarsByBrandId(int id)
