@@ -1,4 +1,5 @@
 ﻿using EntitiesLayer.Concrete;
+using EntitiesLayer.DTOs;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -15,5 +16,6 @@ namespace DataAccessLayer.Concrete.EntityFramework
         public DbSet<Car> Cars { get; set; }
         public DbSet<Color> Colors { get; set; }
         public DbSet<Brand>  Brands{ get; set; }
+        public DbSet<CarInfoDto> CarInfoDtos{ get; set; }
     }
 }

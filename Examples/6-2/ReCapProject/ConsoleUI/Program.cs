@@ -30,38 +30,14 @@ namespace ConsoleUI
             }
             Console.WriteLine("\n");
 
-            _carManager.Add(car);
-            _carManager.Delete(car);
-            Console.WriteLine("\n");
-
-            foreach (var item in _carManager.GetAll())
-            {
-                Console.WriteLine(item.ID + " - " + item.Description);
-            }
-            Console.WriteLine("\n");
+            //_carManager.Add(car);
+            //_carManager.Delete(car);
+            Console.WriteLine("\n");            
 
             car.Description = "BMW Marka Araç";
             _carManager.Update(car);
             Console.WriteLine("\n");
 
-            //foreach (var item in _carManager.GetAll())
-            //{
-            //    Console.WriteLine(item.ID + " - " + item.Description);
-            //}
-            //Console.WriteLine("\n");
-
-            List<Car> listCar = new List<Car>();
-            var result = listCar.Where(c=>c.ID==3);
-            foreach (var item in result)
-            {
-                Console.WriteLine(item.Description);
-            }
-            result.ToList();
-
-            //foreach (var item in _carManager.GetById())
-            //{
-            //    Console.WriteLine(item.ID);
-            //}
 
 
 
