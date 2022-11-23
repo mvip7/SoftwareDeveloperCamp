@@ -28,10 +28,8 @@ namespace DataAccessLayer.Concrete.EntityFramework
                                  DailyPrice=car.DailyPrice
                              };
                 return result.ToList();
-                // tekrar söylermisin 
+              
             }
         }
-       // Emin Değilim
-
     }
 }

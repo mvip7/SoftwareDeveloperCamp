@@ -16,12 +16,15 @@ namespace BusinessLayer.Concrete
         {
             _carDal = carDal;
         }
-
         public void Add(Car car)
         {
-            if (car.Description.Length<2 || car.DailyPrice<=0)
+            if (car.Description.Length < 2 || car.DailyPrice <= 0)
             {
-                Console.WriteLine("Araç Açıklaması En Az 2 Karakter Ve Araç Kiralama Fiyatı 0'dan Büyük Olmalı");
+                Console.WriteLine("Arac Açıklamasi En Az 2 Karakter Ve Arac Kiralama Fiyati 0'dan Buyuk Olmali");
+            }
+            else if (car.ID==car.ID)
+            {
+                Console.WriteLine("Ekleme Islemi Basarisiz. Bu Arac Daha Once Eklenmis !!!");
             }
             else
             {
@@ -29,7 +32,6 @@ namespace BusinessLayer.Concrete
                 Console.WriteLine("Araç Ekleme İşlemi Başarılı");
             }
         }
-
         public void Delete(Car car)
         {
             _carDal.Delete(car);

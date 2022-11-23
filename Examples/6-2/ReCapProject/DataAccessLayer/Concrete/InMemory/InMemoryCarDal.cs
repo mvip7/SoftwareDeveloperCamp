@@ -18,11 +18,11 @@ namespace DataAccessLayer.Concrete.InMemory
         {
             listOfCars = new List<Car>
             {
-                new Car{ID=1,BrandID=2,ModelYear="2015",ColorID=2,DailyPrice=240,Description="Hızlı Araba"},
-                new Car{ID=2,BrandID=1,ModelYear="2016",ColorID=3,DailyPrice=280,Description="Şehiriçi Araba"},
-                new Car{ID=3,BrandID=4,ModelYear="2020",ColorID=4,DailyPrice=290,Description="Yeni ve Hızlı Araba"},
-                new Car{ID=4,BrandID=5,ModelYear="2005",ColorID=6,DailyPrice=180,Description="Eski Araba"},
-                new Car{ID=5,BrandID=6,ModelYear="2012",ColorID=7,DailyPrice=220,Description="Az Yakan Araba"},
+                new Car{ID=1,BrandID=2,ModelYear=2015,ColorID=2,DailyPrice=240,Description="Hızlı Araba"},
+                new Car{ID=2,BrandID=1,ModelYear=2016,ColorID=3,DailyPrice=280,Description="Şehiriçi Araba"},
+                new Car{ID=3,BrandID=4,ModelYear=2020,ColorID=4,DailyPrice=290,Description="Yeni ve Hızlı Araba"},
+                new Car{ID=4,BrandID=5,ModelYear=2005,ColorID=6,DailyPrice=180,Description="Eski Araba"},
+                new Car{ID=5,BrandID=6,ModelYear=2012,ColorID=7,DailyPrice=220,Description="Az Yakan Araba"},
             };
         }
 
