@@ -13,8 +13,20 @@ namespace ConsoleUI
         {
             //CategoryTest();
 
-            ProductTest();
+            //ProductTest();
+            ProductListTest();
+        }
 
+        private static void ProductListTest()
+        {
+            ProductManager productManager = new ProductManager(new EfProductDal());
+            {
+                var result = productManager.GetAll();
+                foreach (var item in result.Data)
+                {
+                    Console.WriteLine(item.ProductName);
+                }
+            }
         }
 
         private static void CategoryTest()

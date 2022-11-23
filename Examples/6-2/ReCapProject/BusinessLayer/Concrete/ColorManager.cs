@@ -1,4 +1,6 @@
-﻿using BusinessLayer.Abstract;
+﻿using Business.Constants;
+using BusinessLayer.Abstract;
+using Core.Utilities;
 using DataAccessLayer.Abstract;
 using EntitiesLayer.Concrete;
 using System;
@@ -15,35 +17,51 @@ namespace BusinessLayer.Concrete
         {
             _colorDal = colorDal;
         }
-
-        public List<Color> GetAll()
+        public IResult Add(Color color)
         {
-            return _colorDal.GetAll();
-        }
-
-        public Color GetByID(int Id)
-        {
-            return _colorDal.Get(c => c.Id == Id);
-        }
-        public void Add(Color color)
-        {
-            if (color.Id==color.Id)
+            if (color.ColorName.Length < 2)
             {
-                Console.WriteLine("Ekleme Islemi Basarisiz. Bu Renk Daha Önce Eklenmiş !!!");
+                return new ErrorResult(Messages.ColorAddedError);
             }
             else
             {
                 _colorDal.Add(color);
-                Console.WriteLine("Renk Ekleme İşlemi Başarılı");
+                return new SuccessResult(Messages.ColorAddedSuccess);
             }
-            
         }
-        public void Delete(Color color)
+        public IDataResult<List<Color>> GetAll()
         {
-            _colorDal.Delete(color);
-            Console.WriteLine("Renk Silindi");
+            return new SuccessDataResult<List<Color>>(_colorDal.GetAll(), Messages.ColorListed);
         }
 
+        public IDataResult<Color> GetByID(int Id)
+        {
+            return new SuccessDataResult<Color>(_colorDal.Get(c => c.Id == Id));
+        }
 
+        public IResult Delete(Color color)
+        {
+            if (color == null)
+            {
+                return new ErrorResult(Messages.ColorDeletedError);
+            }
+            else
+            {
+                _colorDal.Delete(color);
+                return new SuccessResult(Messages.ColorDeletedSuccess);
+            }
+        }
+        public IResult Update(Color color)
+        {
+            if (color.ColorName.Length < 2)
+            {
+                return new ErrorResult(Messages.ColorUpdatedError);
+            }
+            else
+            {
+                _colorDal.Update(color);
+                return new SuccessResult(Messages.ColorUpdatedSuccess);
+            }
+        }
     }
 }

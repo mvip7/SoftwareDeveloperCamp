@@ -13,42 +13,52 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            CarManager _carManager = new CarManager(new EFCarDal());
-            ColorManager _colorManager = new ColorManager(new EFColorDal());
-
-            _colorManager.Add(new Color
-            {
-                Id = 5,
-                ColorName = "Green"
-            });
-            _carManager.Add(new Car
-            {
-                ID = 10,
-                BrandID = 3,
-                DailyPrice = 180,
-                Description = "FIAT Marka Araç",
-                ColorID = 5,
-                ModelYear = 2016
-            });
-            foreach (var item in _colorManager.GetAll())
-            {
-                Console.WriteLine(item.ColorName);
-            }
-            Console.WriteLine("\n");
-            foreach (var item in _carManager.GetAll())
-            {
-                Console.WriteLine(item.Description);
-            }
+            //ListColorTest();
+            //CarDetails();
+            CarListTest();
 
             // Araç Bilgileri Join İşlemi
-            foreach (var item in _carManager.GetCarInfo())
-            {
-                Console.WriteLine("{0}/{1}/{2}/{3}", item.CarId, item.Brand, item.Color, item.DailyPrice);
-            }
-
+            
 
             Console.WriteLine("\nSON");
             Console.ReadLine();
+        }
+
+        private static void ListColorTest()
+        {
+            ColorManager _colorManager = new ColorManager(new EFColorDal());
+            var result = _colorManager.GetAll();
+
+            if (result.Success == true)
+            {
+                foreach (var item in result.Data)
+                {
+                    Console.WriteLine(item.Id + " / " + item.ColorName);
+                }
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+        }
+
+        private static void CarListTest()
+        {
+            CarManager _carManager = new CarManager(new EFCarDal());
+            var result = _carManager.GetAll();
+            foreach (var item in result.Data)
+            {
+                Console.WriteLine(item.Description);
+            }
+        }
+
+        private static void CarDetails()
+        {
+            CarManager _carManager = new CarManager(new EFCarDal());
+            foreach (var item in _carManager.GetCarInfo().Data)
+            {
+                Console.WriteLine("{0}/{1}/{2}/{3}", item.CarId, item.Brand, item.Color, item.DailyPrice);
+            }
         }
     }
 }

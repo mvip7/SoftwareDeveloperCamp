@@ -1,4 +1,6 @@
-﻿using BusinessLayer.Abstract;
+﻿using Business.Constants;
+using BusinessLayer.Abstract;
+using Core.Utilities;
 using DataAccessLayer.Abstract;
 using EntitiesLayer.Concrete;
 using System;
@@ -16,37 +18,51 @@ namespace BusinessLayer.Concrete
             _brandDal = brandDal;
         }
 
-        public List<Brand> GetAll()
+        public IDataResult<List<Brand>> GetAll()
         {
-            return _brandDal.GetAll();
+            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(), Messages.BrandListed);
         }
 
-        public Brand GetByID(int Id)
+        public IDataResult<Brand> GetByID(int Id)
         {
-            return _brandDal.Get(b => b.Id == Id);
+            return new SuccessDataResult<Brand>(Messages.BrandListed);
         }
-        public void Add(Brand brand)
+        public IResult Add(Brand brand)
         {
-            if (brand.Id==brand.Id)
+            if (brand.BrandName.Length < 2)
             {
-                Console.WriteLine("Ekleme Islemi Basarisiz. Bu Marka Daha Once Eklenmis !!!");
+                return new ErrorResult(Messages.BrandAddedError);
             }
             else
             {
                 _brandDal.Add(brand);
-                Console.WriteLine("Marka Eklendi");
+                return new SuccessResult(Messages.BrandAddedSuccess);
             }
-            
+
         }
-        public void Update(Brand brand)
+        public IResult Update(Brand brand)
         {
-            _brandDal.Update(brand);
-            Console.WriteLine("Marka Güncellendi");
+            if (brand.BrandName.Length < 2)
+            {
+                return new ErrorResult(Messages.BrandUpdatedError);
+            }
+            else
+            {
+                _brandDal.Update(brand);
+                return new SuccessResult(Messages.BrandUpdatedSuccess);
+            }
         }
-        public void Delete(Brand brand)
+        public IResult Delete(Brand brand)
         {
-            _brandDal.Delete(brand);
-            Console.WriteLine("Araç Silindi");
+            if (brand==null)
+            {
+                return new ErrorResult(Messages.BrandDeletedError);
+            }
+            else
+            {
+                _brandDal.Delete(brand);
+                return new SuccessResult(Messages.BrandDeletedSuccess);
+            }
         }
     }
 }
