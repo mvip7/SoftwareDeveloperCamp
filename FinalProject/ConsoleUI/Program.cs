@@ -1,7 +1,9 @@
 ﻿using Business.Concrete;
 using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
+using Entities.Concrete;
 using System;
+using System.Collections.Generic;
 
 namespace ConsoleUI
 {
@@ -29,11 +31,19 @@ namespace ConsoleUI
         private static void ProductTest()
         {
             ProductManager productManager = new ProductManager(new EfProductDal());
-            
-            foreach (var item in productManager.GetProductDetails())
+            var result = productManager.GetProductDetails();
+            if (result.Success == true)
             {
-                Console.WriteLine(item.ProductName+"/"+item.CategoryName);
+                foreach (var item in productManager.GetProductDetails().Data)
+                {
+                    Console.WriteLine(item.ProductName + "/" + item.CategoryName);
+                }                
             }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+
         }
     }
 }
