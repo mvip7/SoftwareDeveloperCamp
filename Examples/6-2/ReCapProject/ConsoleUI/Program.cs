@@ -15,13 +15,37 @@ namespace ConsoleUI
         {
             //ListColorTest();
             //CarDetails();
-            CarListTest();
+            //CarListTest();
 
-            // Araç Bilgileri Join İşlemi
+            RentalsInfoManager rentalsManager = new RentalsInfoManager(new EfRentalsInfoDal());
+            rentalsManager.Add(new RentalsInfo { Id=4,CarId=3,CustomerId=1,RentDate=DateTime.Today,ReturnDate=new DateTime(2022,12,5) });
+            var result = rentalsManager.GetAll();
+            foreach (var item in result.Data)
+            {
+                Console.WriteLine(item.CarId+" / "+ item.CustomerId);
+            }
             
+            // Customer İşlemi
+            //CustomerAddTest();
+            //CustomerListTest();
 
-            Console.WriteLine("\nSON");
-            Console.ReadLine();
+            Console.WriteLine("SON");
+        }
+
+        private static void CustomerListTest()
+        {
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());            
+            var result = customerManager.GetAll();
+            foreach (var item in result.Data)
+            {
+                Console.WriteLine(item.CompanyName);
+            }            
+        }
+
+        private static void CustomerAddTest()
+        {
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+            customerManager.Add(new Customer { Id=3, UserId = 4, CompanyName = "Deneme" });
         }
 
         private static void ListColorTest()
