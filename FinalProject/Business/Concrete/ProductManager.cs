@@ -22,22 +22,22 @@ namespace Business.Concrete
 
         public IResult Add(Product product)
         {
-            if (product.ProductName.Length < 2)
-            {
-                return new ErrorResult(Messages.ProductNameInvalid);
-            }
+            //if (product.ProductName.Length < 2)
+            //{
+            //    return new ErrorResult(Messages.ProductNameInvalid);
+            //}
             _productDal.Add(product);
             return new SuccessResult(Messages.ProductAddedSuccess);
         }
 
-        public IDataResult<Product> GetById(int Id)
+        public IDataResult<Product> GetById(int id)
         {
-            return new SuccessDataResult<Product>(Messages.ProductListed);
+            return new SuccessDataResult<Product>(_productDal.Get(p=>p.ProductID==id),Messages.ProductListed);
         }
-
+        // tamamdır çok teşekkür ederim
         public IDataResult<List<Product>> GetAll()
         {
-            if (DateTime.Now.Hour == 22)
+            if (DateTime.Now.Hour == 00)
             {
                 return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime);
             }
@@ -45,9 +45,9 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Product>>(_productDal.GetAll(), Messages.ProductListed);
         }
 
-        public IDataResult<List<Product>> GetAllByCategoryID(int ID)
+        public IDataResult<List<Product>> GetAllByCategoryID(int id)
         {
-            return new SuccessDataResult<List<Product>>(_productDal.GetAll(p => p.CategoryID == ID));
+            return new SuccessDataResult<List<Product>>(_productDal.GetAll(p => p.CategoryID == id));
         }
 
         public IDataResult<List<Product>> GetByUnitPrice(decimal min, decimal max)
