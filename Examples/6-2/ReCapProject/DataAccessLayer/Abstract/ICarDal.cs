@@ -9,6 +9,6 @@ namespace DataAccessLayer.Abstract
 {
     public interface ICarDal:IEntityRepos<Car>
     {
-        List<CarInfoDto> GetCarInfo();
+        List<CarInfoDto> GetCarInfo(int id);
     }
 }

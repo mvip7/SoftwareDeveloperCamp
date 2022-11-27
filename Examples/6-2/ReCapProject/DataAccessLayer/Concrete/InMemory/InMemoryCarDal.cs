@@ -88,6 +88,11 @@ namespace DataAccessLayer.Concrete.InMemory
             throw new NotImplementedException();
         }
 
+        public List<CarInfoDto> GetCarInfo(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(Car cars)
         {
             findCar = listOfCars.FirstOrDefault(c=>c.ID==cars.ID);

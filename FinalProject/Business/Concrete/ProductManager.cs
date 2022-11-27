@@ -34,7 +34,7 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<Product>(_productDal.Get(p=>p.ProductID==id),Messages.ProductListed);
         }
-        // tamamdır çok teşekkür ederim
+        
         public IDataResult<List<Product>> GetAll()
         {
             if (DateTime.Now.Hour == 00)

@@ -50,7 +50,7 @@ namespace ConsoleUI
 
         private static void ListColorTest()
         {
-            ColorManager _colorManager = new ColorManager(new EFColorDal());
+            ColorManager _colorManager = new ColorManager(new EfColorDal());
             var result = _colorManager.GetAll();
 
             if (result.Success == true)
@@ -68,7 +68,7 @@ namespace ConsoleUI
 
         private static void CarListTest()
         {
-            CarManager _carManager = new CarManager(new EFCarDal());
+            CarManager _carManager = new CarManager(new EfCarDal());
             var result = _carManager.GetAll();
             foreach (var item in result.Data)
             {
@@ -76,10 +76,10 @@ namespace ConsoleUI
             }
         }
 
-        private static void CarDetails()
+        private static void CarDetails(int id)
         {
-            CarManager _carManager = new CarManager(new EFCarDal());
-            foreach (var item in _carManager.GetCarInfo().Data)
+            CarManager _carManager = new CarManager(new EfCarDal());
+            foreach (var item in _carManager.GetCarInfo(id).Data)
             {
                 Console.WriteLine("{0}/{1}/{2}/{3}", item.CarId, item.Brand, item.Color, item.DailyPrice);
             }

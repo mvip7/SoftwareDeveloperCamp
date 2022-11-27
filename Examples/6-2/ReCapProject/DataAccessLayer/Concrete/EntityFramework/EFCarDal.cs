@@ -11,15 +11,16 @@ using System.Text;
 
 namespace DataAccessLayer.Concrete.EntityFramework
 {
-    public class EFCarDal : EfEntityRepositoryBase<Car, CarRentalContext>, ICarDal
+    public class EfCarDal : EfEntityRepositoryBase<Car, CarRentalContext>, ICarDal
     {
-        public List<CarInfoDto> GetCarInfo()
+        public List<CarInfoDto> GetCarInfo(int id)
         {
             using (CarRentalContext context = new CarRentalContext())
             {
                 var result = from car in context.Cars
                              join color in context.Colors on car.ColorID equals color.Id
                              join brand in context.Brands on car.BrandID equals brand.Id
+                             where car.ID==id
                              select new CarInfoDto
                              {
                                  CarId=car.ID,
@@ -27,8 +28,7 @@ namespace DataAccessLayer.Concrete.EntityFramework
                                  Brand=brand.BrandName,
                                  DailyPrice=car.DailyPrice
                              };
-                return result.ToList();
-              
+                return result.ToList();              
             }
         }
     }

@@ -42,12 +42,12 @@ namespace BusinessLayer.Concrete
 
         public IDataResult<Car> GetById(int Id)
         {
-            return new SuccessDataResult<Car>(Messages.CarListed);
+            return new SuccessDataResult<Car>(_carDal.Get(p => p.ID == Id), Messages.CarListed);
         }
 
-        public IDataResult<List<CarInfoDto>> GetCarInfo()
+        public IDataResult<List<CarInfoDto>> GetCarInfo(int id)
         {
-            return new SuccessDataResult<List<CarInfoDto>>(_carDal.GetCarInfo());
+            return new SuccessDataResult<List<CarInfoDto>>(_carDal.GetCarInfo(id));
         }
 
         public IDataResult<List<Car>> GetCarsByBrandId(int id)
@@ -62,7 +62,7 @@ namespace BusinessLayer.Concrete
 
         public IResult Update(Car car)
         {
-            if (car.Description.Length<2)
+            if (car.Description.Length < 2)
             {
                 return new ErrorResult(Messages.CarUpdatedError);
             }
@@ -71,7 +71,7 @@ namespace BusinessLayer.Concrete
                 _carDal.Update(car);
                 return new SuccessResult(Messages.CarUpdatedSuccess);
             }
-            
+
         }
     }
 }
