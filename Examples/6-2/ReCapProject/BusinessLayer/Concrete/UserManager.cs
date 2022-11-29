@@ -1,6 +1,8 @@
 ﻿using Business.Constants;
 using BusinessLayer.Abstract;
-using Core.Utilities;
+using BusinessLayer.ValidationRules.FluentValidator;
+using Core.Utilities.Aspect.Autofac.Validation;
+using Core.Utilities.Results;
 using DataAccessLayer.Abstract;
 using EntitiesLayer.Concrete;
 using System;
@@ -18,6 +20,7 @@ namespace BusinessLayer.Concrete
             _userDal = userDal;
         }
 
+        [ValidationAspect(typeof(UserValidator))]
         public IResult Add(User user)
         {
             if (user.FirstName.Length <= 2)
