@@ -19,7 +19,7 @@ namespace ConsoleUI
 
         private static void ProductListTest()
         {
-            ProductManager productManager = new ProductManager(new EfProductDal());
+            ProductManager productManager = new ProductManager(new EfProductDal(),new CategoryManager(new EfCategoryDal));
             {
                 var result = productManager.GetAll();
                 foreach (var item in result.Data)

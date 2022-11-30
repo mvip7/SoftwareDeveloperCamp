@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using System.Linq;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
@@ -12,16 +13,19 @@ using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Core.Utilities.Business;
 
 namespace Business.Concrete
 {
     public class ProductManager : IProductService
     {
         IProductDal _productDal;
+        ICategoryService _categoryService;
 
-        public ProductManager(IProductDal productDal)
+        public ProductManager(IProductDal productDal, ICategoryService categoryService)
         {
             _productDal = productDal;
+            _categoryService = categoryService;
         }
 
         [ValidationAspect(typeof(ProductValidator))]
@@ -33,16 +37,27 @@ namespace Business.Concrete
             // Validation Code => Kullancı tarafından alınan Verinin uzunluğu,içerdiği karakterler(özel,sayısal,metinsel)
             // gibi kuralların tanımlandığı kısımdır. Veri bütünlüğü ile ilgili yapılan kısıtlamaların yazıldığı kodlar.
 
-            
-            _productDal.Add(product);
-            return new SuccessResult(Messages.ProductAddedSuccess);
+           IResult result =  BusinessRules.Run(
+                CheckIfCategoryProductCountOfCategoryCorrect(product.CategoryID),
+                CheckIfProductNameExists(product.ProductName),
+                CheckIfCategoryCount());
+
+            if (result != null)
+            {
+                return result;
+            }
+            else
+            {
+                _productDal.Add(product);
+                return new SuccessResult();
+            }           
         }
 
         public IDataResult<Product> GetById(int id)
         {
-            return new SuccessDataResult<Product>(_productDal.Get(p=>p.ProductID==id),Messages.ProductListed);
+            return new SuccessDataResult<Product>(_productDal.Get(p => p.ProductID == id), Messages.ProductListed);
         }
-        
+
         public IDataResult<List<Product>> GetAll()
         {
             if (DateTime.Now.Hour == 00)
@@ -75,6 +90,36 @@ namespace Business.Concrete
             {
                 return new SuccessDataResult<List<ProductDetailDto>>(_productDal.GetProductDetails());
             }
+        }
+
+        private IResult CheckIfCategoryProductCountOfCategoryCorrect(int categoryId)
+        {
+            var catId = _productDal.GetAll(p => p.CategoryID == categoryId);
+            if (catId.Count >= 10)
+            {
+                return new ErrorResult(Messages.ProductCountOfCategoryError);
+            }
+            return new SuccessResult();
+        }
+        private IResult CheckIfProductNameExists(string name)
+        {
+            var productName = _productDal.GetAll(p => p.ProductName == name).Any();
+
+            if (productName)
+            {
+                return new ErrorResult(Messages.ProductNameAlreadyExists);
+            }
+
+            return new SuccessResult();
+        }
+        private IResult CheckIfCategoryCount()
+        {
+            var catNums = _categoryService.GetAll();
+            if (catNums.Data.Count>=15)
+            {
+                return new ErrorResult();
+            }
+            return new SuccessResult();                    
         }
     }
 }
